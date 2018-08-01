@@ -29,7 +29,7 @@ connection.connect(function(err) {
         connection.query(query,{ product_name: answer.id }, function(err, result) {
 
             for (var i=0; i< result.length; i++){
-                console.log("ID:" +""+ result[i].product_name);
+                console.log("ID:" +""+ result[i].id);
                 console.log("product Name:" +""+ result[i].product_name);
                 console.log("Department Name:" +""+ result[i].department_name);
                 console.log("Price:"+""+ result[i].price);
