@@ -26,7 +26,8 @@ connection.connect(function(err) {
   });
 })
 
-function idsearch(){inquirer.prompt({
+function idsearch(){
+    inquirer.prompt({
     name:"id",
     type:"input",
     message:" what items ID would you like to search?",
@@ -58,15 +59,19 @@ connection.query(query, {id:answer.id}, function(err, result){
 
 }]).then(function(answer){
     var quantity = answer.stock_quantity;
-    var itemId = answer.id;
+    // var itemId = result[i].id;
         for (var i=0; i< result.length; i++){
             if (result[i].stock_quantity - quantity > 0 ){
                 console.log("ID:" +""+ result[i].id);
                 console.log("product Name:" +""+ result[i].product_name);
                 console.log("Order Quantity:" +""+ answer.stock_quantity);
                 console.log("Your total is ="+" "+(answer.stock_quantity *result[i].price));
-    
-    connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[i].stock_quantity - quantity, itemId],
+                console.log("---------------------------");      
+                console.log("Remaining:" +[result[i].stock_quantity - quantity, "ID:" +""+ result[i].id]);
+                console.log("---------------------------");
+  
+    connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[i].stock_quantity - quantity, result[i].id],
+   
                 function(err, result) {
                     if (err) throw err;
     
