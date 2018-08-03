@@ -20,7 +20,7 @@ connection.connect(function(err) {
             console.log("Department Name:" +""+ result[i].department_name);
             console.log("Price:"+""+ result[i].price);
             console.log("Stock Quantity:" +""+ result[i].stock_quantity);
-            // console.log(result);
+            console.log("------------------------------");
         }
         idsearch();
   });
@@ -44,6 +44,7 @@ connection.query(query, {id:answer.id}, function(err, result){
         console.log("Department Name:" +""+ result[i].department_name);
         console.log("Price:"+""+ result[i].price);
         console.log("Stock Quantity:" +""+ result[i].stock_quantity);
+        console.log("---------------------------");
     }
  
     inquirer.prompt([{
@@ -58,26 +59,24 @@ connection.query(query, {id:answer.id}, function(err, result){
 }]).then(function(answer){
     var quantity = answer.stock_quantity;
     var itemId = answer.id;
-// connection.query(query, {stock_quantity: answer.stock_quantity},function(err, result){
-    // console.log(result);
         for (var i=0; i< result.length; i++){
-            if (result[i].stock_quantity - quantity <= 0 ){
-                console.log("Insufficient quantity! Currently we only have "+ result[i].stock_quantity+ result[i].product_name);
-            }else
+            if (result[i].stock_quantity - quantity > 0 ){
                 console.log("ID:" +""+ result[i].id);
                 console.log("product Name:" +""+ result[i].product_name);
-                console.log("Stock Quantity:" +""+ result[i].stock_quantity);
-                console.log("You total is"+(result[i].stock_quantity *result[i].price));
+                console.log("Order Quantity:" +""+ answer.stock_quantity);
+                console.log("Your total is ="+" "+(answer.stock_quantity *result[i].price));
     
     connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[i].stock_quantity - quantity, itemId],
                 function(err, result) {
                     if (err) throw err;
     
-                    // displayProducts();
                 }); 
-           
+             
+            }else
+            console.log("Insufficient quantity! Currently we only have "+ " "+ result[i].stock_quantity+ result[i].product_name);
+               
         }
-        // displayProducts();
+      
     // })
   
 })
