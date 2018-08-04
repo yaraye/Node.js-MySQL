@@ -71,7 +71,7 @@ connection.query(query, {id:answer.id}, function(err, result){
                 console.log("---------------------------");
   
     connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[i].stock_quantity - quantity, result[i].id],
-   
+     
                 function(err, result) {
                     if (err) throw err;
     
@@ -81,8 +81,8 @@ connection.query(query, {id:answer.id}, function(err, result){
             console.log("Insufficient quantity! Currently we only have "+ " "+ result[i].stock_quantity+ result[i].product_name);
                
         }
-      
-    // })
+        
+        idsearch();
   
 })
 })

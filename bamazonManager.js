@@ -98,7 +98,8 @@ function addInventory(){
             result[0].stock_quantity = parseInt(answer.amount) + parseInt(result[0].stock_quantity)
            
             console.log(result[0]);
-    
+            console.log(answer.amount+" "+result[0].product_name +" "+"added to the inventory.");
+
             connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[0].stock_quantity, result[0].id],
             
             function(err, result) {
@@ -107,7 +108,7 @@ function addInventory(){
             }); 
             console.log("------------------------------"); 
         });
-           
+        search();
            
         });
        
@@ -149,7 +150,7 @@ function newProduct(){
  
     function(err, result) {
         if (err) throw err;
-        console.log("Great, "+ newItem.product_name+ " have been added to the inventory.");
+        console.log(newItem.product_name+" "+newItem.stock_quantity+" "+ " have been added to the inventory.");
         search();
    });
 });
