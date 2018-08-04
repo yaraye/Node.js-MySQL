@@ -59,7 +59,7 @@ connection.query(query, {id:answer.id}, function(err, result){
 
 }]).then(function(answer){
     var quantity = answer.stock_quantity;
-    // var itemId = result[i].id;
+   
         for (var i=0; i< result.length; i++){
             if (result[i].stock_quantity - quantity > 0 ){
                 console.log("ID:" +""+ result[i].id);
