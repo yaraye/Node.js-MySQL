@@ -93,24 +93,24 @@ function addInventory(){
             message:"How many would you like to add?"
         }]).then(function add(answer){
             var itemId= answer.id;
-            
-    
             connection.query('SELECT * FROM products WHERE id='+ itemId,function(err, result) {
         
-                console.log(result[0]);
-            console.log("You have added "+ answer.amount + " " +result[0].product_name+ " to the inventory.");
-            console.log(result[0].stock_quantity + answer.amount);
-         
-            // connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[0].stock_quantity + Number(answer.amount), result[0].id],
+            result[0].stock_quantity = parseInt(answer.amount) + parseInt(result[0].stock_quantity)
+           
+            console.log(result[0]);
+    
+            connection.query('UPDATE products SET stock_quantity=? WHERE id=?', [result[0].stock_quantity, result[0].id],
             
-            // function(err, result) {
-            //     if (err) throw err;
+            function(err, result) {
+                if (err) throw err;
 
-            // }); 
-        
+            }); 
             console.log("------------------------------"); 
-            })
         });
+           
+           
+        });
+       
 
 }
 //   * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
